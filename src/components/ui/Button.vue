@@ -10,7 +10,7 @@
       color="white"
       style="margin-right: 10px"
     />
-    <slot></slot>
+    <span><slot></slot></span>
   </button>
 </template>
 
@@ -22,6 +22,7 @@ export default {
   props: {
     icon: String,
     color: String,
+    handledClick: Function,
   },
   components: {
     SvgIcon,
@@ -32,7 +33,9 @@ export default {
 <style scoped>
 .btn {
   max-height: 44px;
+  min-width: 150px;
   padding: 11px 20px;
+  margin: 0 8px;
   cursor: pointer;
   border: none;
   border-radius: 60px;
@@ -42,5 +45,10 @@ export default {
   font-weight: bold;
   font-size: 18px;
   line-height: 22px;
+}
+@media (min-width: 600px) {
+  .btn {
+    min-width: 275px;
+  }
 }
 </style>

@@ -15,8 +15,9 @@
     </div>
     <div class="btn-get-started w-full flex justify-center">
       <router-link to="/dashboard">
-        <Button> Get started </Button>
-        <!-- <Button title="Get started" icon="starSM" color="red"></Button> -->
+        <Button :handledClick="onclick" style="pointer-events: none">
+          Get started
+        </Button>
       </router-link>
     </div>
   </div>
@@ -29,6 +30,12 @@ export default {
   name: "Home",
   components: {
     Button,
+  },
+  methods: {
+    onclick: function () {
+      console.log("aqui");
+      this.$router.push("dashboard");
+    },
   },
 };
 </script>

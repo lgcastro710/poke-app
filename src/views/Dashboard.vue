@@ -1,32 +1,93 @@
 <template>
-  <div class="dashboard">
-    <!-- <div class="px-8">
-      <router-link to="/"
-        ><button class="btn-volver">Volver</button></router-link
-      >
-    </div> -->
-    <PokeList />
+  <div>
+    <Loading :visible="showLoading"></Loading>
+    <div class="content">
+      <Search />
+      <PokeList />
+    </div>
+    <Footer></Footer>
   </div>
 </template>
+
 <script>
 import PokeList from "../components/PokeList";
+import Search from "../components/ui/Search";
+import Footer from "../components/Footer";
+import axios from "axios";
+import Loading from "../components/Loading";
 
 export default {
   name: "Dashboard",
-  data: () => ({
-    status: true,
-  }),
+  data: function () {
+    return {
+      status: true,
+      offset: 0,
+      showLoading: false,
+    };
+  },
   setup() {},
   components: {
     PokeList,
+    Search,
+    Footer,
+    Loading,
   },
+
   methods: {
-    // setFavorite: function () {
-    //   console.log("setea el favorito");
-    // },
-    setColor: function () {
-      console.log("setea el favorito");
+    setListStore: function (pokeList) {
+      this.$store.commit("setListValue", pokeList);
     },
+    listarElementos: async function () {
+      this.showLoading = true;
+      const pokeData = await axios
+        .get(
+          `https://pokeapi.co/api/v2/pokemon?limit=${
+            this.$store.state.lista.length ? 10 : 9
+          }&offset=${this.offset}`
+        )
+        .then((response) => response.data.results);
+
+      const lista = pokeData.map((pokeInfo) => {
+        pokeInfo.active = false;
+        return pokeInfo;
+      });
+      setTimeout(() => {
+        this.showLoading = false;
+      }, 3000);
+      this.setListStore(lista);
+    },
+    handleScroll() {
+      window.onscroll = () => {
+        const scrollTop = parseInt(
+          Math.ceil(document.documentElement.scrollTop)
+        );
+
+        const innerHeight = window.innerHeight;
+        const offsetHeight = document.documentElement.offsetHeight;
+
+        const bottomOfWindow = scrollTop + innerHeight === offsetHeight;
+        if (bottomOfWindow) {
+          this.offset += 10;
+          this.listarElementos();
+        }
+      };
+    },
+  },
+  created: function () {
+    this.listarElementos();
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
+
+<style scoped>
+.content {
+  max-width: 570px;
+  min-width: 315px;
+  margin: auto;
+  min-height: 85vh;
+}
+</style>
