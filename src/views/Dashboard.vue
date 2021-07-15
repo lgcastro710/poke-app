@@ -5,26 +5,26 @@
         ><button class="btn-volver">Volver</button></router-link
       >
     </div> -->
-    <ButtonStar :active="status" :handledClick="setFavorite" />
     <PokeList />
   </div>
 </template>
 <script>
 import PokeList from "../components/PokeList";
-import ButtonStar from "../components/ui/ButtonStar";
 
 export default {
   name: "Dashboard",
   data: () => ({
-    status: false,
+    status: true,
   }),
   setup() {},
   components: {
     PokeList,
-    ButtonStar,
   },
   methods: {
-    setFavorite: function () {
+    // setFavorite: function () {
+    //   console.log("setea el favorito");
+    // },
+    setColor: function () {
       console.log("setea el favorito");
     },
   },

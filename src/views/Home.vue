@@ -13,20 +13,23 @@
         to Trainers in the Pokémon world.
       </p>
     </div>
-    <div class="btn-get-started">
-      <router-link to="/dashboard" class="w-full flex justify-center" style="">
-        <button>Get started</button></router-link
-      >
+    <div class="btn-get-started w-full flex justify-center">
+      <router-link to="/dashboard">
+        <Button> Get started </Button>
+        <!-- <Button title="Get started" icon="starSM" color="red"></Button> -->
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import Button from "../components/ui/Button";
 
 export default {
   name: "Home",
-  components: {},
+  components: {
+    Button,
+  },
 };
 </script>
 <style>
@@ -78,21 +81,6 @@ export default {
   line-height: 150%;
   margin-top: 30px;
   padding: 0 30px;
-}
-
-.btn-get-started button {
-  width: 131px;
-  height: 44px;
-  margin-top: 50px;
-  cursor: pointer;
-  border: none;
-  background: #f22539;
-  border-radius: 60px;
-  color: #ffffff;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 22px;
+  margin-bottom: 50px;
 }
 </style>

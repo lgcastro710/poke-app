@@ -1,10 +1,23 @@
 <template>
   <div class="input-search flex justify-start items-center">
-    <img src="../../assets/icons/search.svg" alt="" class="icon-search" />
+    <SvgIcon
+      name="search"
+      color="#BFBFBF"
+      style="margin: 16px 10px 16px 15px"
+    ></SvgIcon>
     <input type="text" placeholder="Search" />
   </div>
 </template>
 
+<script>
+import SvgIcon from "../ui/SvgIcon";
+export default {
+  name: "Search",
+  components: {
+    SvgIcon,
+  },
+};
+</script>
 <style>
 .input-search {
   position: absolute;
@@ -24,13 +37,7 @@
   line-height: 140%;
   color: #bfbfbf;
 }
-.icon-search {
-  width: 18px;
-  height: 18px;
-  left: 15px;
-  top: calc(50% - 18px / 2);
-  margin: 16px 10px 16px 15px;
-}
+
 @media (min-width: 600px) {
   .input-search {
     position: absolute;
