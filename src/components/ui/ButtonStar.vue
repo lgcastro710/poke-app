@@ -1,6 +1,6 @@
 <template>
   <button
-    v-on:click.prevent="handledClick()"
+    v-on:click.prevent="(e) => onClick(e)"
     class="btn__container flex justify-center items-center"
   >
     <SvgIcon name="star" :color="active ? '#ECA539' : '#BFBFBF'"></SvgIcon>
@@ -18,6 +18,12 @@ export default {
   },
   components: {
     SvgIcon,
+  },
+  methods: {
+    onClick: function (event) {
+      event.stopPropagation();
+      this.handledClick();
+    },
   },
 };
 </script>

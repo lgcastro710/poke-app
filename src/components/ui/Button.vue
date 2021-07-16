@@ -1,6 +1,6 @@
 <template>
   <button
-    v-on:click.prevent="handledClick()"
+    v-on:click.prevent="handledClick(argument)"
     class="btn flex justify-center items-center"
     :style="color ? 'background-color:' + color : 'background-color: #f22539'"
   >
@@ -22,6 +22,7 @@ export default {
   props: {
     icon: String,
     color: String,
+    argument: Boolean || Object,
     handledClick: Function,
   },
   components: {

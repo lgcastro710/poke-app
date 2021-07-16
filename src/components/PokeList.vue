@@ -3,7 +3,7 @@
     <FailedResult v-if="!listaFiltrada.length"></FailedResult>
     <ul v-if="listaFiltrada.length">
       <li v-for="(item, key) in listaFiltrada" v-bind:key="key">
-        <PokeItem :item="item"></PokeItem>
+        <PokeItem :item="item" :setItem="setItem"></PokeItem>
       </li>
     </ul>
   </div>
@@ -12,36 +12,30 @@
 <script>
 import PokeItem from "../components/PokeItem";
 import FailedResult from "../components/FailedResult";
+import { mapState } from "vuex";
 
 export default {
   name: "PokeList",
   data: function () {
     return {
       item: null,
-      lista: this.$store.state.lista,
     };
   },
   components: {
     PokeItem,
     FailedResult,
   },
-  computed: {
-    listaFiltrada: function () {
-      let arreglo = this.$store.state.lista;
-      const consulta = this.$store.state.textBuscar;
-      if (consulta !== "") {
-        arreglo = this.$store.state.lista?.filter((pokemon) => {
-          const name = pokemon.name;
-          const id = String(pokemon.id);
-          return (
-            (name.toLowerCase() + " " + id.toLowerCase()).indexOf(
-              consulta.toLowerCase()
-            ) > -1
-          );
-        });
-      }
-      return arreglo;
+  methods: {
+    setItem: function () {
+      this.$store.commit("setItem", this.state.item);
     },
+  },
+  computed: mapState({
+    listaFiltrada: (state) => state.listaFiltrada,
+  }),
+  created() {
+    this.$store.commit("setSearchValue", "");
+    this.$store.commit("filterByName");
   },
 };
 </script>

@@ -9,27 +9,25 @@
       <input
         type="text"
         placeholder="Search"
-        v-model="txtBuscar"
+        :value="txtBuscar"
         @keyup="setState"
       />
     </div>
   </div>
 </template>
-
 <script>
 import SvgIcon from "../ui/SvgIcon";
+import { mapState } from "vuex";
 
 export default {
   name: "Search",
-  data: () => {
-    return {
-      txtBuscar: "",
-    };
-  },
+  computed: mapState({
+    txtBuscar: (state) => state.txtBuscar,
+  }),
   methods: {
-    setState: function () {
-      console.log("aqui");
-      this.$store.commit("setSearchValue", this.txtBuscar);
+    setState: function (e) {
+      this.$store.commit("setSearchValue", e.target.value);
+      this.$store.commit("filterByName");
     },
   },
   components: {
@@ -37,7 +35,8 @@ export default {
   },
 };
 </script>
-<style>
+
+<style scoped>
 .input-search {
   width: 315px;
   height: 50px;
@@ -58,7 +57,6 @@ export default {
   width: 100%;
   outline: none;
 }
-
 @media (min-width: 600px) {
   .input-search {
     width: 570px;

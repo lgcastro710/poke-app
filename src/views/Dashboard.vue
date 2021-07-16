@@ -2,7 +2,9 @@
   <div>
     <Loading :visible="showLoading"></Loading>
     <div class="content">
+      <DetailModal v-if="item" :item="item"></DetailModal>
       <Search />
+
       <PokeList />
     </div>
     <Footer></Footer>
@@ -15,6 +17,8 @@ import Search from "../components/ui/Search";
 import Footer from "../components/Footer";
 import axios from "axios";
 import Loading from "../components/Loading";
+import DetailModal from "../components/DetailModal";
+import { mapState } from "vuex";
 
 export default {
   name: "Dashboard",
@@ -31,13 +35,21 @@ export default {
     Search,
     Footer,
     Loading,
+    DetailModal,
   },
-
+  computed: mapState({
+    item: (state) => state.item,
+    showOnlyFavorites: (state) => state.showOnlyFavorites,
+  }),
   methods: {
     setListStore: function (pokeList) {
       this.$store.commit("setListValue", pokeList);
+      this.$store.commit("filterByName");
     },
     listarElementos: async function () {
+      if (this.showOnlyFavorites) {
+        return false;
+      }
       this.showLoading = true;
       const pokeData = await axios
         .get(
@@ -53,8 +65,9 @@ export default {
       });
       setTimeout(() => {
         this.showLoading = false;
-      }, 3000);
-      this.setListStore(lista);
+      }, 1500);
+      const pokeList = [...this.$store.state.lista, ...lista];
+      this.setListStore(pokeList);
     },
     handleScroll() {
       window.onscroll = () => {

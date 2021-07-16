@@ -1,6 +1,9 @@
 <template>
   <div class="">
-    <div class="item flex justify-between items-center">
+    <div
+      class="item flex justify-between items-center"
+      v-on:click.prevent="setItemSelected"
+    >
       <span>{{ item.name }}</span>
       <ButtonStar
         :active="item.active"
@@ -25,13 +28,16 @@ export default {
     setFavorite: function () {
       this.$store.commit("setFavoriteStore", this.item.name);
     },
+    setItemSelected: function () {
+      this.$store.commit("setItem", this.item);
+    },
   },
 };
 </script>
 
 <style scoped>
 .item {
-  width: 315px;
+  width: auto;
   height: 60px;
   border-radius: 5px;
   background: #ffffff;
@@ -50,7 +56,6 @@ export default {
 }
 @media (min-width: 600px) {
   .item {
-    width: 570px;
     margin: 10px 0px;
   }
 }
