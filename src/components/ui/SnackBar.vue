@@ -1,6 +1,6 @@
 <template>
   <div class="snack-bar flex justify-center" v-if="visible">
-    <p>Copiado en el Portapapeles</p>
+    <p>Copying to Clipboard</p>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   bottom: 35px;
   position: absolute;
   z-index: 2;
-  background: #59882385;
+  background: rgb(106 177 25);
   border: 1px solid #35948b;
   border-radius: 26px;
   color: white;
