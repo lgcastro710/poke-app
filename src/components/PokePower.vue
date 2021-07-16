@@ -1,5 +1,5 @@
 <template>
-  <span class="power">{{ powers }}</span>
+  <p class="power">{{ powers }}</p>
 </template>
 
 <script>

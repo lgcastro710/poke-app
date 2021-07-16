@@ -1,16 +1,19 @@
 <template>
   <Modal>
     <div>
-      <div class="bg--modal">
+      <div class="bg--modal flex justify-center">
         <img :src="item.imageUrl" class="img-modal" />
+        <button v-on:click.prevent="onClose" class="btn-close">
+          <img src="../assets/btn-close.svg" alt="" />
+        </button>
       </div>
-      <div class="list--detail">
+      <div class="detail">
         <ul>
-          <li>Name:{{ item.name }}</li>
-          <li>Weight:{{ item.weight }}</li>
-          <li>Height:{{ item.height }}</li>
+          <li><span>Name:</span>{{ item.name }}</li>
+          <li><span>Weight:</span>{{ item.weight }}</li>
+          <li><span>Height:</span>{{ item.height }}</li>
           <li v-if="item.types">
-            Types:
+            <span>Types:</span>
             <PokePower :types="item.types"></PokePower>
           </li>
         </ul>
@@ -22,7 +25,6 @@
           :handledClick="setFavorite"
         ></ButtonStar>
       </div>
-      <button v-on:click.prevent="onClose">cerrar</button>
     </div>
   </Modal>
 </template>
@@ -47,7 +49,6 @@ export default {
   },
   computed: mapState({
     item: (state) => {
-      console.log("+++", state);
       return state.item;
     },
   }),
@@ -56,6 +57,7 @@ export default {
       this.$store.commit("setItem", false);
     },
     setFavorite: function () {
+      console.log("aqui----");
       this.$store.commit("setFavoriteStore", this.item.name);
     },
     getElement: async function () {
@@ -93,5 +95,37 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   height: 200px;
+  position: relative;
+}
+.detail {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.detail li {
+  margin: 0 30px;
+  border-bottom: 1px solid #e8e8e8;
+  color: #5e5e5e;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+  text-transform: capitalize;
+}
+.detail span {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 150%;
+  margin-right: 5px;
+}
+.btn-close img {
+  top: 15px;
+  right: 15px;
+  position: absolute;
 }
 </style>

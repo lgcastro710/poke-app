@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
 .input-search {
-  width: 315px;
+  width: auto;
   height: 50px;
   left: 30px;
   top: 35px;
@@ -59,7 +59,7 @@ export default {
 }
 @media (min-width: 600px) {
   .input-search {
-    width: 570px;
+    width: auto;
     height: 50px;
     left: 291px;
     top: 35px;

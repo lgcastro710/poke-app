@@ -44,6 +44,7 @@ export default {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.04);
   padding: 17px 8px 17px 20px;
   margin: 10px 30px 0px;
+  cursor: pointer;
 }
 .item span {
   font-family: Lato;

@@ -21,6 +21,7 @@ export default {
   width: 100%;
   margin-top: -35px;
   left: 0;
+  z-index: 1;
 }
 .modal {
   background: #ffffff;
