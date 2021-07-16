@@ -1,5 +1,8 @@
 # poke-app
 
+## DEMO
+Ver github page: [https://lgcastro710.github.io/pokedex/](https://lgcastro710.github.io/poke-app/).
+
 ## Project setup
 ```
 yarn install
