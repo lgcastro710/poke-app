@@ -18,5 +18,6 @@
 }
 body {
   background: #f9f9f9;
+  min-height: calc(100vh + 20px);
 }
 </style>

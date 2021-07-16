@@ -15,7 +15,7 @@
     </div>
     <div class="btn-get-started w-full flex justify-center">
       <router-link to="/dashboard">
-        <Button :handledClick="onclick" style="pointer-events: none">
+        <Button :handledClick="onclick" style="pointer-events: none; min-width: 131px">
           Get started
         </Button>
       </router-link>

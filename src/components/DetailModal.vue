@@ -18,11 +18,11 @@
           </li>
         </ul>
       </div>
-      <div class="btn--share-favorite flex justify-center items-center">
-        <Button>Share to my friends</Button>
+      <div class="btn--share-favorite flex justify-between items-center">
+        <Button :handledClick="copyData" style="min-width: 195px">Share to my friends</Button>
         <ButtonStar
-          :active="item.active"
-          :handledClick="setFavorite"
+                :active="item.active"
+                :handledClick="setFavorite"
         ></ButtonStar>
       </div>
     </div>
@@ -38,7 +38,7 @@ import axios from "axios";
 import { mapState } from "vuex";
 
 export default {
-  name: "DatailModal",
+  name: "DetailModal",
   setup() {},
 
   components: {
@@ -47,10 +47,12 @@ export default {
     Modal,
     PokePower,
   },
+
   computed: mapState({
     item: (state) => {
       return state.item;
-    },
+    }
+
   }),
   methods: {
     onClose: function () {
@@ -82,6 +84,23 @@ export default {
       console.log("--", item.types);
       this.$store.commit("setItem", item);
     },
+    copyData: function (){
+      const types = this.item.types.map((type) => {
+        return type.type.name;
+      })
+      const powers = types.join();
+      const text = `
+  Name: ${this.item.name},
+  Weight:${this.item.weight},
+  Height:${this.item.height},
+  Types:(${powers})
+  `
+      navigator.clipboard.writeText(text).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+      }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+      });
+    }
   },
   created: function () {
     this.getElement();
@@ -94,7 +113,7 @@ export default {
   background-image: url("../assets/paisaje.svg");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 200px;
+  height: 250px;
   position: relative;
 }
 .detail {
@@ -122,6 +141,9 @@ export default {
   font-size: 18px;
   line-height: 150%;
   margin-right: 5px;
+}
+.btn--share-favorite{
+  margin: 0 20px;
 }
 .btn-close img {
   top: 15px;

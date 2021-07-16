@@ -26,6 +26,12 @@ export default new Vuex.Store({
       state.lista = state.lista.map((item)=>{
         if(item.name === name){
           item.active = !item.active
+          if(state.item) {
+            state.item = {
+              ...state.item,
+              ...item
+            }
+          }
         }
           return item
       })

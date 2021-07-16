@@ -1,5 +1,5 @@
 <template>
-  <div class="opacity-modal">
+  <div class="opacity-modal flex justify-center">
     <div class="modal">
       <slot></slot>
     </div>
@@ -16,7 +16,7 @@ export default {
 <style scoped>
 .opacity-modal {
   background: rgba(0, 0, 0, 0.6);
-  position: absolute;
+  position: fixed;
   min-height: 85vh;
   width: 100%;
   margin-top: -35px;
@@ -26,8 +26,10 @@ export default {
 .modal {
   background: #ffffff;
   border-radius: 5px;
-  width: auto;
+  width: 100%;
   height: 506px;
   margin: 153px 30px;
+  max-width: 570px;
+  overflow: hidden;
 }
 </style>

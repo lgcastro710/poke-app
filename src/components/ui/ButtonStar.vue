@@ -11,7 +11,7 @@
 import SvgIcon from "../ui/SvgIcon";
 
 export default {
-  name: "Buttonstar",
+  name: "ButtonStar",
   props: {
     active: Boolean,
     handledClick: Function,

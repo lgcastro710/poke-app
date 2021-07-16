@@ -54,7 +54,7 @@ export default {
       const pokeData = await axios
         .get(
           `https://pokeapi.co/api/v2/pokemon?limit=${
-            this.$store.state.lista.length ? 10 : 9
+            this.$store.state.lista.length ? 10 : 10
           }&offset=${this.offset}`
         )
         .then((response) => response.data.results);
