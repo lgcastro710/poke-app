@@ -19,12 +19,15 @@
         </ul>
       </div>
       <div class="btn--share-favorite flex justify-between items-center">
-        <Button :handledClick="copyData" style="min-width: 195px">Share to my friends</Button>
+        <Button :handledClick="copyData" style="min-width: 195px"
+          >Share to my friends</Button
+        >
         <ButtonStar
-                :active="item.active"
-                :handledClick="setFavorite"
+          :active="item.active"
+          :handledClick="setFavorite"
         ></ButtonStar>
       </div>
+      <SnackBar :visible="showSnackBar"></SnackBar>
     </div>
   </Modal>
 </template>
@@ -34,25 +37,30 @@ import Button from "../components/ui/Button";
 import ButtonStar from "../components/ui/ButtonStar";
 import Modal from "../components/ui/Modal";
 import PokePower from "../components/PokePower";
+import SnackBar from "../components/ui/SnackBar";
 import axios from "axios";
 import { mapState } from "vuex";
 
 export default {
   name: "DetailModal",
   setup() {},
-
+  data: function () {
+    return {
+      showSnackBar: false,
+    };
+  },
   components: {
     Button,
     ButtonStar,
     Modal,
     PokePower,
+    SnackBar,
   },
 
   computed: mapState({
     item: (state) => {
       return state.item;
-    }
-
+    },
   }),
   methods: {
     onClose: function () {
@@ -84,23 +92,30 @@ export default {
       console.log("--", item.types);
       this.$store.commit("setItem", item);
     },
-    copyData: function (){
+    copyData: function () {
       const types = this.item.types.map((type) => {
         return type.type.name;
-      })
+      });
       const powers = types.join();
       const text = `
   Name: ${this.item.name},
   Weight:${this.item.weight},
   Height:${this.item.height},
   Types:(${powers})
-  `
-      navigator.clipboard.writeText(text).then(function() {
-        console.log('Async: Copying to clipboard was successful!');
-      }, function(err) {
-        console.error('Async: Could not copy text: ', err);
-      });
-    }
+  `;
+
+      navigator.clipboard.writeText(text).then(
+        () => {
+          this.showSnackBar = true;
+          setTimeout(() => {
+            this.showSnackBar = false;
+          }, 2000);
+        },
+        function (err) {
+          console.error("Async: Could not copy text: ", err);
+        }
+      );
+    },
   },
   created: function () {
     this.getElement();
@@ -142,7 +157,7 @@ export default {
   line-height: 150%;
   margin-right: 5px;
 }
-.btn--share-favorite{
+.btn--share-favorite {
   margin: 0 20px;
 }
 .btn-close img {

@@ -4,7 +4,6 @@
     <div class="content">
       <DetailModal v-if="item" :item="item"></DetailModal>
       <Search />
-
       <PokeList />
     </div>
     <Footer></Footer>
@@ -15,6 +14,7 @@
 import PokeList from "../components/PokeList";
 import Search from "../components/ui/Search";
 import Footer from "../components/Footer";
+
 import axios from "axios";
 import Loading from "../components/Loading";
 import DetailModal from "../components/DetailModal";
